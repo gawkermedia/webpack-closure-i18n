@@ -1,0 +1,19 @@
+{
+  "name": "webpack-closure-i18n",
+  "version": "0.1.0",
+  "description": "Set of plugins for Webpack for post-build i18n of Closure Templates",
+  "main": "il8n-plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gawkermedia/webpack-closure-i18n.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gawkermedia/webpack-closure-i18n/issues"
+  },
+  "homepage": "https://github.com/gawkermedia/webpack-closure-i18n#readme"
+}
