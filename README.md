@@ -9,7 +9,7 @@ all `MSG_EXTERNAL_(\d+)` definitions found in the bundles into locale-specific o
 This is intended as a fast alternative to the multi-compiler approach to translation shown in
 https://github.com/webpack/webpack/tree/master/examples/i18n. While that approach works nicely for
 projects of many sizes, it becomes slow in projects with very large dependency trees or a large number
-of translations, as it forces Webpack to handle a dependency tree that with size matching
+of translations, as it forces Webpack to handle a dependency tree with size matching
 `NUMBER_OF_DEPENDENCIES * NUMBER_OF_TRANSLATIONS`.
 
 ## PostCompileI18nPlugin
