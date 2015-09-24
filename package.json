@@ -20,12 +20,10 @@
     "escodegen": "^1.7.0",
     "esprima": "^2.6.0",
     "q": "^1.4.1",
+    "sax": "^1.1.3",
     "stats-webpack-plugin": "^0.2.1",
+    "underscore": "^1.8.3",
     "underscore.string": "^3.2.2",
     "webpack": "^1.12.2"
-  },
-  "devDependencies": {
-    "sax": "^1.1.3",
-    "underscore": "^1.8.3"
   }
 }
