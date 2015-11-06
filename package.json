@@ -25,5 +25,11 @@
     "underscore": "^1.8.3",
     "underscore.string": "^3.2.2",
     "webpack": "^1.12.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  },
+  "scripts": {
+	"test": "mocha test"
   }
 }
