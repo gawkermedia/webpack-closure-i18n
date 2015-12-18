@@ -12,6 +12,7 @@ var path = require('path'),
  * @param {object} config - configuration object
  * @param {array[string]} config.locales - Closure locale names to translate to
  * @param {string} config.localePath - Base path to load locale files from
+ * @param {boolean} [config.appendSourceMapLink=false] - Whether to append a link to sourcemap in generated files
  * @param {string} [config.defaultLocale] - Default locale to use (e.g. when translation not available for specific locale)
  * @param {array[string]} [config.modules] - List of modules to translate (will translate all chunks if none specified here)
  * @param {string} [config.localeNameTemplateVar] - String to replace any instance of with locale name
@@ -27,6 +28,7 @@ function PostCompileI18nPlugin(config) {
 		throw new Error('localePath must be set and pointed to the base path of locale files');
 	}
 
+	this.appendSourceMapLink = Boolean(config.appendSourceMapLink);
 	this.defaultLocale = config.defaultLocale || 'en-US';
 	this.locales = config.locales;
 	this.localePath = config.localePath;
@@ -71,9 +73,11 @@ PostCompileI18nPlugin.prototype.apply = function (compiler) {
 					var originalSource = compilation.assets[filename].source(),
 						translations = instance.translater.translate(originalSource);
 					instance.locales.forEach(function (locale) {
-						var localizedFilename = filename.replace(instance.localeNameTemplateVar, locale);
+						var localizedFilename = filename.replace(instance.localeNameTemplateVar, locale),
+							source = instance.appendSourceMapLink ? new ConcatSource(translations[locale] +
+							'\n//# sourceMappingURL=' + filename + '.map') : new ConcatSource(translations[locale]);
 						compilation.additionalChunkAssets.push(localizedFilename);
-						compilation.assets[localizedFilename] = new ConcatSource(translations[locale]);
+						compilation.assets[localizedFilename] = source;
 					});
 				});
 			}
