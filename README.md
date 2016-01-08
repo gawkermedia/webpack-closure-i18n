@@ -6,6 +6,9 @@ This is a set of two Webpack plugins for translating Closure Templates in a "pos
 Webpack has already built asset bundles, but before it has emitted them, the i18n plugin translates
 all `MSG_EXTERNAL_(\d+)` definitions found in the bundles into locale-specific output.
 
+<a href="https://github.com/gawkermedia/fast-closure-translater">Fast Closure Translater</a> is used to
+perform the actual work of translation.
+
 This is intended as a fast alternative to the multi-compiler approach to translation shown in
 https://github.com/webpack/webpack/tree/master/examples/i18n. While that approach works nicely for
 projects of many sizes, it becomes slow in projects with very large dependency trees or a large number
