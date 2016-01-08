@@ -4,7 +4,7 @@
 
 var path = require('path'),
 	ConcatSource = require('webpack/lib/ConcatSource'),
-	Translater = require('./lib/closure-translater');
+	Translater = require('fast-closure-translater');
 
 /**
  * Plugin for translating Closure Templates in already-built Webpack chunks.
