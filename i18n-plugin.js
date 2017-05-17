@@ -3,7 +3,7 @@
 'use strict';
 
 var path = require('path'),
-	ConcatSource = require('webpack/lib/ConcatSource'),
+	ConcatSource = require('webpack-sources').ConcatSource,
 	Translater = require('fast-closure-translater');
 
 /**
@@ -86,7 +86,7 @@ PostCompileI18nPlugin.prototype.apply = function (compiler) {
 
 			if (instance.modules.length) {  // Module names specified - only translate these modules
 				filteredChunks = chunks.filter(function (chunk) {
-					if (!chunk.entry && !chunk.initial) {
+					if (!chunk.hasRuntime() && !chunk.isInitial()) {
 						// We need to translate all non-entry/non-initial chunks (e.g. lazy-loaded packages)
 						return true;
 					}
