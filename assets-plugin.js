@@ -65,6 +65,8 @@ PostCompileI18nAssetsPlugin.prototype.apply = function (compiler) {
 				}
 			}
 		});
+		
+		delete assets[""];
 
 		fs.writeFileSync(outputFull, JSON.stringify(assets));
 
