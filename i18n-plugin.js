@@ -73,11 +73,15 @@ PostCompileI18nPlugin.prototype.apply = function (compiler) {
 					var originalSource = compilation.assets[filename].source(),
 						translations = instance.translater.translate(originalSource);
 					instance.locales.forEach(function (locale) {
-						var localizedFilename = filename.replace(instance.localeNameTemplateVar, locale),
-							source = instance.appendSourceMapLink ? new ConcatSource(translations[locale] +
-							'\n//# sourceMappingURL=' + filename + '.map') : new ConcatSource(translations[locale]);
-						compilation.additionalChunkAssets.push(localizedFilename);
-						compilation.assets[localizedFilename] = source;
+						var localizedFilename = filename.replace(instance.localeNameTemplateVar, locale);
+						if (localizedFilename !== filename) {
+							var source = instance.appendSourceMapLink
+								? new ConcatSource(translations[locale] + '\n//# sourceMappingURL=' + filename + '.map')
+								: new ConcatSource(translations[locale]);
+
+							compilation.additionalChunkAssets.push(localizedFilename);
+							compilation.assets[localizedFilename] = source;
+						}
 					});
 				});
 			}
