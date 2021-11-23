@@ -3,8 +3,8 @@
 'use strict';
 
 var path = require('path'),
-	ConcatSource = require('webpack/lib/ConcatSource'),
 	Translater = require('fast-closure-translater');
+const { ConcatSource } = require('webpack-sources');
 
 /**
  * Plugin for translating Closure Templates in already-built Webpack chunks.
