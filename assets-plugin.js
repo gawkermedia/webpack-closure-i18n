@@ -77,12 +77,8 @@ PostCompileI18nAssetsPlugin.prototype = {
             callback();
         };
 
-        if (compiler.hooks) {
-            var plugin = { name: 'PostCompileI18nAssetsPlugin' }
-            compiler.hooks.afterEmit.tapAsync(plugin, afterEmit)
-        } else {
-            compiler.plugin('after-emit', afterEmit)
-        }
+        var plugin = { name: 'PostCompileI18nAssetsPlugin' }
+        compiler.hooks.afterEmit.tapAsync(plugin, afterEmit)
     },
 }
 
