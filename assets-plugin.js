@@ -1,7 +1,4 @@
 /* jshint node: true */
-/* global JSON */
-
-'use strict';
 
 /*
  * Plugin for use in conjunction with i18n-webpack-plugin. Wraps assets-webpack-plugin to
@@ -24,10 +21,10 @@
  *		}
  * }
  */
-var fs = require('fs'),
-    path = require('path'),
 
-    AssetsPlugin = require('assets-webpack-plugin');
+const fs = require('fs');
+const path = require('path');
+const AssetsPlugin = require('assets-webpack-plugin');
 
 /**
  * @param {object} options - config options
@@ -37,49 +34,49 @@ var fs = require('fs'),
  * @param {string} [options.localePlaceholder='[FAST_LOCALE]'] - placeholder string for locale in file paths
  */
 function PostCompileI18nAssetsPlugin(options) {
-    this.assetsPlugin = new AssetsPlugin(options);
-    this.options = options || {};
-    this.localePlaceholder = this.options.localePlaceholder || '[FAST_LOCALE]';
-    this.locales = this.options.locales;
+	this.PLUGIN_NAME = 'PostCompileI18nAssetsPlugin';
+	this.assetsPlugin = new AssetsPlugin(options);
+	this.options = options || {};
+	this.localePlaceholder = this.options.localePlaceholder || '[FAST_LOCALE]';
+	this.locales = this.options.locales;
 }
 
 PostCompileI18nAssetsPlugin.prototype = {
-    constructor: PostCompileI18nAssetsPlugin,
+	constructor: PostCompileI18nAssetsPlugin,
 
-    apply: function (compiler) {
-        var self = this;
-        this.assetsPlugin.apply(compiler);
+	apply: compiler => {
+		const self = this;
 
-        var afterEmit = function (compiler, callback) {
-            var outputDir = self.options.path || '.',
-                outputFilename = self.options.filename || 'webpack-assets.json',
-                outputFull = path.join(outputDir, outputFilename),
-                assets = JSON.parse(fs.readFileSync(outputFull, {encoding: 'utf8'}));
+		self.assetsPlugin.apply(compiler);
 
-            Object.keys(assets).forEach(function (assetName) {
-                var asset = assets[assetName],
-                    assetPath;
-                if (asset.js) {
-                    assetPath = asset.js;
-                    if (assetPath.indexOf(self.localePlaceholder) > -1) {
-                        self.locales.forEach(function (locale) {
-                            assets[assetName + '.' + locale] = assetPath.replace(self.localePlaceholder, locale);
-                        });
-                        delete assets[assetName];
-                    }
-                }
-            });
+		const afterEmit = (compiler, callback) => {
+			const outputDir = self.options.path || '.';
+			const outputFilename = self.options.filename || 'webpack-assets.json';
+			const outputFull = path.join(outputDir, outputFilename);
+			const assets = JSON.parse(fs.readFileSync(outputFull, { encoding: 'utf8' }));
 
-            delete assets[""];
+			Object.keys(assets).forEach(assetName => {
+				const asset = assets[assetName];
+				if (asset.js) {
+					const assetPath = asset.js;
+					if (assetPath.indexOf(self.localePlaceholder) > -1) {
+						self.locales.forEach(locale => {
+							assets[assetName + '.' + locale] = assetPath.replace(self.localePlaceholder, locale);
+						});
+						delete assets[assetName];
+					}
+				}
+			});
 
-            fs.writeFileSync(outputFull, JSON.stringify(assets));
+			delete assets[''];
 
-            callback();
-        };
+			fs.writeFileSync(outputFull, JSON.stringify(assets));
 
-        var plugin = { name: 'PostCompileI18nAssetsPlugin' }
-        compiler.hooks.afterEmit.tapAsync(plugin, afterEmit)
-    },
-}
+			callback();
+		};
+
+		compiler.hooks.afterEmit.tapAsync(self.PLUGIN_NAME, afterEmit);
+	}
+};
 
 module.exports = PostCompileI18nAssetsPlugin;

@@ -1,6 +1,5 @@
 /* jshint node: true */
 
-'use strict';
 
 const path = require('path');
 const Translater = require('fast-closure-translater');
@@ -36,7 +35,7 @@ function PostCompileI18nPlugin(config) {
 PostCompileI18nPlugin.prototype = {
 	constructor: PostCompileI18nPlugin,
 
-	apply: function (compiler) {
+	apply(compiler) {
 		const self = this;
 
 		const { ConcatSource } = compiler.webpack.sources;
@@ -63,10 +62,10 @@ PostCompileI18nPlugin.prototype = {
 					() => { callback(); },
 					() => { throw new Error('Failed to load translations!'); }
 				);
-		}
+		};
 
-		compiler.hooks.run.tapAsync(self.PLUGIN_NAME, onRun)
-		compiler.hooks.watchRun.tapAsync(self.PLUGIN_NAME, onRun)
+		compiler.hooks.run.tapAsync(self.PLUGIN_NAME, onRun);
+		compiler.hooks.watchRun.tapAsync(self.PLUGIN_NAME, onRun);
 
 		compiler.hooks.compilation.tap(self.PLUGIN_NAME, compilation => {
 			compilation.hooks.processAssets.tap({
