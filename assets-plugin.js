@@ -44,7 +44,7 @@ function PostCompileI18nAssetsPlugin(options) {
 PostCompileI18nAssetsPlugin.prototype = {
 	constructor: PostCompileI18nAssetsPlugin,
 
-	apply: compiler => {
+	apply: function (compiler) {
 		const self = this;
 
 		self.assetsPlugin.apply(compiler);

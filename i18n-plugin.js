@@ -35,7 +35,7 @@ function PostCompileI18nPlugin(config) {
 PostCompileI18nPlugin.prototype = {
 	constructor: PostCompileI18nPlugin,
 
-	apply(compiler) {
+	apply: function (compiler) {
 		const self = this;
 
 		const { ConcatSource } = compiler.webpack.sources;
