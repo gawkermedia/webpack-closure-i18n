@@ -1,6 +1,6 @@
 {
   "name": "webpack-closure-i18n",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Set of plugins for Webpack for post-build i18n of Closure Templates",
   "main": "il8n-plugin.js",
   "scripts": {
@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/gawkermedia/webpack-closure-i18n#readme",
   "dependencies": {
-    "assets-webpack-plugin": "^3.10.0",
     "fast-closure-translater": "git+https://github.com/gawkermedia/fast-closure-translater.git#v0.1.0",
     "webpack": "^5.89.0"
   },
